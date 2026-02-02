@@ -6,17 +6,8 @@ This tap provides the `justhtml` CLI via Homebrew.
 
 ## Install
 
-### Option 1: One-liner
-
 ```sh
 brew install diffen/justhtml/justhtml
-```
-
-### Option 2: Tap first (shorter install command)
-
-```sh
-brew tap diffen/justhtml
-brew install justhtml
 ```
 
 ## Verify
@@ -25,23 +16,33 @@ brew install justhtml
 justhtml --version
 ```
 
-## Basic usage
+## Usage Examples
 
 ```sh
-# Extract text from a selector
-justhtml page.html --selector "main p" --format text
+# Extract the first non-empty paragraph as text (pipe-friendly)
+curl -s https://en.wikipedia.org/wiki/Earth | \
+  justhtml - --selector "#mw-content-text p:not(:empty)" --format text --first
 
-# Read from stdin (pipe friendly)
-curl -s https://example.com | justhtml - --selector "article" --format markdown
+# Extract all links in the lead section (attribute extraction + limit + separator)
+curl -s https://en.wikipedia.org/wiki/Earth | \
+  justhtml - --selector "#mw-content-text p a" --attr href --limit 10 --separator "\n"
 
-# Extract attribute values
-justhtml page.html --selector "a" --attr href
+# Get the lead section as markdown (selector + markdown output)
+curl -s https://en.wikipedia.org/wiki/Earth | \
+  justhtml - --selector "#mw-content-text" --format markdown --first
+
+# Count images on the page (count mode)
+curl -s https://en.wikipedia.org/wiki/Earth | \
+  justhtml - --selector "img" --count
+
+# Output the outer HTML for the infobox (outer HTML)
+curl -s https://en.wikipedia.org/wiki/Earth | \
+  justhtml - --selector "table.infobox" --format html --outer --first
+
+# Extract text without stripping whitespace (no-strip + custom separator)
+curl -s https://en.wikipedia.org/wiki/Earth | \
+  justhtml - --selector "#mw-content-text p" --format text --no-strip --separator "\n\n" --limit 3
 ```
-
-## Requirements
-
-- Homebrew
-- PHP (installed automatically by Homebrew as a dependency)
 
 ## Upgrading
 
