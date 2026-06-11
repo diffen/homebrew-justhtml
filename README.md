@@ -6,7 +6,24 @@ This tap provides the `justhtml` CLI via Homebrew.
 
 ## Install
 
+Homebrew 6.0.0 (June 2026) requires third-party taps to be explicitly
+trusted before their formulae can be loaded. Trust this tap, then install:
+
 ```sh
+brew trust diffen/justhtml
+brew install diffen/justhtml/justhtml
+```
+
+Trusting the tap means you accept that its code runs with your user's
+privileges. This tap contains a single MIT-licensed formula
+([Formula/justhtml.rb](Formula/justhtml.rb)) that installs the
+MIT-licensed [justhtml-php](https://github.com/diffen/justhtml-php)
+library — you can review both before trusting.
+
+If you prefer to trust only this formula rather than the whole tap:
+
+```sh
+brew trust --formula diffen/justhtml/justhtml
 brew install diffen/justhtml/justhtml
 ```
 
@@ -372,9 +389,37 @@ If you installed via the tap and want to remove it:
 
 ```sh
 brew untap diffen/justhtml
+brew untrust diffen/justhtml
 ```
 
 ## Troubleshooting
+
+### “Refusing to load formula diffen/justhtml/justhtml from untrusted tap diffen/justhtml”
+
+Homebrew 6.0.0 requires third-party taps to be explicitly trusted. If you
+tapped `diffen/justhtml` before upgrading to Homebrew 6, any `brew`
+command that touches this tap (`brew info justhtml`, `brew upgrade`, etc.)
+will fail with this error until you trust it. Run one of:
+
+```sh
+# Trust the whole tap (covers future formula updates):
+brew trust diffen/justhtml
+
+# Or trust only this formula:
+brew trust --formula diffen/justhtml/justhtml
+```
+
+This is a one-time step. You can review what you've trusted with
+`brew trust` (no arguments) and revoke with `brew untrust diffen/justhtml`.
+See the [Homebrew Tap Trust documentation](https://docs.brew.sh/Tap-Trust)
+for details.
+
+If you install via a Brewfile, declare the trust there:
+
+```ruby
+tap "diffen/justhtml", trusted: true
+brew "diffen/justhtml/justhtml"
+```
 
 ### “justhtml: command not found”
 
