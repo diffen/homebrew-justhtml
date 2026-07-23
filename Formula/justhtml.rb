@@ -1,8 +1,8 @@
 class Justhtml < Formula
   desc "HTML5 parser CLI with CSS selectors and full html5lib compliance"
   homepage "https://github.com/diffen/justhtml-php"
-  url "https://github.com/diffen/justhtml-php/archive/refs/tags/v0.2.0.tar.gz"
-  sha256 "6e658ab5061140c8f6efe018597ff0569380c54acb0206d542587772608662ab"
+  url "https://github.com/diffen/justhtml-php/archive/refs/tags/v0.3.0.tar.gz"
+  sha256 "26a46b540c39aca2305f955ec8194b3b83013a61ad78cf561e913967a7ce4020"
   license "MIT"
 
   depends_on "php"
